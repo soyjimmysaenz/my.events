@@ -1,0 +1,50 @@
+<!-- Modal Form Guardar Evento -->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="formEventoHeader">Guardar Evento</h3>
+</div>
+<div class="modal-body">
+    <form>
+        <input type="hidden" data-ng-model="evento.Id" />
+        <label>Nombre:</label>
+        <input type="text" data-ng-model="evento.Nombre" required />
+        <label>Descripción:</label>
+        <input type="text" data-ng-model="evento.Descripcion" />
+        <label>Importancia:</label>
+        <input type="number" data-ng-model="evento.Importancia" min="1" max="10" />
+        <label>Lugar:</label>
+        <input type="text" data-ng-model="evento.Lugar" />
+        <!--<input type="datetime" data-ng-model="evento.FechaRealizacion" required />-->
+        <div class="control-group">
+            <label class="control-label">Fecha de Realización:</label>
+
+            <div class="controls">
+                <div class="control-group input-append date form-datetime">
+                    <input type="text" data-date-format="yyyy-mm-dd hh:ii"
+                           data-ng-change="cambiarFormatoFecha()" 
+                           data-ng-model="evento.FechaRealizacion" 
+                           data-date-time="" readonly="readonly" required>
+                    <span class="add-on"><em class="icon-remove"></em></span>
+                    <span class="add-on"><em class="icon-th"></em></span>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <button data-ng-click="saveEvento(evento); hide();" class="btn btn-primary">Guardar</button>
+</div>
+
+<script type="text/javascript">
+    $(".form-datetime").datetimepicker({
+          format: "yyyy-mm-ddThh:ii:ssZ",
+          showMeridian: true,
+          autoclose: true,
+          todayBtn: true,
+          pickerPosition: 'bottom-left',
+          startDate: new Date()
+    });
+</script>
+<!-- / Modal Form Nuevo Evento -->

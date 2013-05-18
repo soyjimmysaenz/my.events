@@ -1,0 +1,34 @@
+<h3>Lista de Eventos</h3>
+<div class="data-container">
+    <div class="form-inline">
+        <button class="btn" data-ng-click="setNuevoEvento()" data-bs-modal="'partials/edit.html'"><i class="icon-plus"></i>Nuevo</button> 
+        <div class="input-prepend" style="margin-left:15px;">
+            <span class="add-on"><i class="icon-search"></i></span>
+            <input type="text" placeholder="Búsqueda" data-ng-model="consulta" />    
+        </div>
+        
+    </div>
+    <br />
+    <table class="table table-striped table-bordered table-hover">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Importancia</th>
+            <th>Lugar</th>
+            <th>Fecha de Realización</th>
+            <th>Acciones
+            </th>
+        </tr>
+        <tr data-ng-repeat="item in eventos | filter:consulta">
+            <td>{{ item.Nombre }}</td>
+            <td>{{ item.Descripcion }}</td>
+            <td>{{ item.Importancia }}</td>
+            <td>{{ item.Lugar }}</td>
+            <td>{{ item.FechaRealizacion | date:'dd/MM/yyyy @ HH:mm' }}</td>
+            <td>
+                <button class="btn" data-ng-click="loadEvento(item)" data-bs-modal="'partials/edit.html'"><i class="icon-edit"></i></button>
+                <button class="btn" data-ng-click="deleteEvento(item);"><i class="icon-remove"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>
