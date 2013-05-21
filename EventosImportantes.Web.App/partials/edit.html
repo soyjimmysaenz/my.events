@@ -21,15 +21,15 @@
             <div class="controls">
                 <div class="control-group input-append date form-datetime">
                     <input type="text" data-date-format="yyyy-mm-dd hh:ii"
-                           data-ng-change="cambiarFormatoFecha()" 
-                           data-ng-model="evento.FechaRealizacion" 
-                           data-date-time="" readonly="readonly" required>
+                           data-ng-model="fechaElegida.fecha" 
+                           data-date-time readonly="readonly" required>
                     <span class="add-on"><em class="icon-remove"></em></span>
                     <span class="add-on"><em class="icon-th"></em></span>
                 </div>
 
             </div>
-        </div>
+        </div> 
+        <input type="text" data-ng-model="tempData"  />
     </form>
 </div>
 <div class="modal-footer">

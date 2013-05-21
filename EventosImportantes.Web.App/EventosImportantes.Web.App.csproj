@@ -68,9 +68,11 @@
     <Content Include="lib\angular\angular.js" />
     <Content Include="lib\angular\angular.min.js" />
     <Content Include="index.html" />
+    <Content Include="lib\angular\bootstrap-datepicker.js" />
     <Content Include="lib\angular\bootstrap-datetimepicker.js" />
     <Content Include="partials\list.html" />
     <Content Include="partials\edit.html" />
+    <Content Include="style\lib\bootstrap-datepicker.css" />
     <Content Include="style\lib\bootstrap-datetimepcker.css" />
     <Content Include="style\style.css">
       <DependentUpon>style.less</DependentUpon>

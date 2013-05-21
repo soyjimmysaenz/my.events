@@ -4,25 +4,21 @@
 
 angular.module('eventosApp.controllers', []).
   controller('eventosController', ['$scope', 'eventosService', function ($scope, eventosService) {
-       
-      $scope.fechaRealizacion = {
-          fecha: new Date(),
-          hora: new Date()
-      };
-
-      $scope.cambiarFormatoFecha = function () {
-          var cadenaComparar = "-06:00";
-          var cadenaFecha = $scope.evento.FechaRealizacion.slice(-6);
-          if (cadenaFecha != "") {
-              if (cadenaFecha != cadenaComparar) {
-                  $scope.evento.FechaRealizacion += cadenaComparar;
-              }
-          }
-      };
+        
+      //$scope.cambiarFormatoFecha = function () {
+      //    var cadenaComparar = "-06:00";
+      //    var cadenaFecha = $scope.evento.FechaRealizacion.slice(-6);
+      //    if (cadenaFecha != "") {
+      //        if (cadenaFecha != cadenaComparar) {
+      //            $scope.evento.FechaRealizacion += cadenaComparar;
+      //        }
+      //    }
+      //};
       
       var init = function () {
           $scope.evento = new eventosService();
           $scope.eventos = getEventos();
+          $scope.fechaElegida = {fecha:'', hora:''};
       };
 
       var getEventos = function () {
@@ -34,8 +30,23 @@ angular.module('eventosApp.controllers', []).
       };
 
       var createEvento = function (nuevoEvento) {
-          nuevoEvento.$save();
-          $scope.eventos.push(nuevoEvento);
+          nuevoEvento.FechaRealizacion = $scope.fechaElegida.fecha;
+          nuevoEvento.$save({}, 
+          function(data) {
+              //nuevoEvento = data;
+              $scope.eventos.push(nuevoEvento);
+              $scope.status = data.status;
+          },
+          function(data) {
+              // error callback
+              $scope.status = data.status;
+              switch (data.status) {
+                  case '400':
+                      $scope.error = "Ha realizado una acción incorrecta";
+                  default:
+                      $scope.error = "Algo salió mal :(";
+              }
+          });           
       };
 
       var updateEvento = function (evento) {
@@ -73,10 +84,13 @@ angular.module('eventosApp.controllers', []).
               $scope.eventos.splice($scope.eventos.indexOf(evento), 1);
           }
       };
-
-      $scope.getHora = function() {
-          console.log($scope.evento.FechaRealizacion);
-      };
+      
+      //$scope.toLocalDate = function (fecha) {
+      //    //var nuevaFecha = fecha + "-06:00";
+      //    var utc = new Date(fecha);
+      //    var local = new Date(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDay(), utc.getUTCHours(), utc.getUTCMinutes());
+      //    return local;
+      //};
 
       init();
 

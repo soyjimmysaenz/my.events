@@ -8,8 +8,8 @@ angular.module('eventosApp.directives', ['$strap.directives']).
       return function (scope, elm, attrs) {
           elm.text(version);
       };
-  }]).
-    directive('dateTime', function () {
+  }])
+    .directive('dateTime', function () {
     return {
         restrict: 'A',
         require: '?ngModel',
