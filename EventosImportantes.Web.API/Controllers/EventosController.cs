@@ -32,6 +32,12 @@ namespace EventosImportantes.Web.API.Controllers
             return eventoRepository.All;
         }
 
+        //[HttpGet]
+        //public IEnumerable<Evento> GetById([FromUri] IEnumerable<int> id)
+        //{
+        //    return eventoRepository.All;
+        //}
+
         //
         // GET: /api/eventos/5
 
@@ -65,6 +71,20 @@ namespace EventosImportantes.Web.API.Controllers
         public HttpResponseMessage Delete(int id)
         {
             eventoRepository.Delete(id);
+            eventoRepository.Save();
+
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        //
+        // DELETE: api/eventos/
+        public HttpResponseMessage DeleteBatch([FromUri]IEnumerable<int> idsEventos)
+        {
+            foreach (var id in idsEventos)
+            {
+                eventoRepository.Delete(id);    
+            }
+            
             eventoRepository.Save();
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);

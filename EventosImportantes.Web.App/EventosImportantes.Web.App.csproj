@@ -73,7 +73,7 @@
     <Content Include="partials\list.html" />
     <Content Include="partials\edit.html" />
     <Content Include="style\lib\bootstrap-datepicker.css" />
-    <Content Include="style\lib\bootstrap-datetimepcker.css" />
+    <Content Include="style\lib\bootstrap-datetimepicker.css" />
     <Content Include="style\style.css">
       <DependentUpon>style.less</DependentUpon>
     </Content>

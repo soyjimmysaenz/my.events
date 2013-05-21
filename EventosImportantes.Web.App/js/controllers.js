@@ -5,16 +5,6 @@
 angular.module('eventosApp.controllers', []).
   controller('eventosController', ['$scope', 'eventosService', function ($scope, eventosService) {
         
-      //$scope.cambiarFormatoFecha = function () {
-      //    var cadenaComparar = "-06:00";
-      //    var cadenaFecha = $scope.evento.FechaRealizacion.slice(-6);
-      //    if (cadenaFecha != "") {
-      //        if (cadenaFecha != cadenaComparar) {
-      //            $scope.evento.FechaRealizacion += cadenaComparar;
-      //        }
-      //    }
-      //};
-      
       var init = function () {
           $scope.evento = new eventosService();
           $scope.eventos = getEventos();
@@ -85,13 +75,6 @@ angular.module('eventosApp.controllers', []).
           }
       };
       
-      //$scope.toLocalDate = function (fecha) {
-      //    //var nuevaFecha = fecha + "-06:00";
-      //    var utc = new Date(fecha);
-      //    var local = new Date(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDay(), utc.getUTCHours(), utc.getUTCMinutes());
-      //    return local;
-      //};
-
       init();
 
   }]);
