@@ -7,12 +7,35 @@ angular.module('eventosApp.controllers', []).
         
       var init = function () {
           $scope.evento = new eventosService();
-          $scope.eventos = getEventos();
-          $scope.fechaElegida = {fecha:'', hora:''};
+          $scope.isViewLoading = false;
+          getEventos();
+          $scope.fechaElegida = { fecha: '', hora: '' };
+      };
+      
+      var cambiarFormatoFecha = function (fecha) {
+          var cadenaComparar = "-06:00";
+          var cadenaFecha = fecha.slice(-6);
+          var resp = fecha;
+          if (cadenaFecha != "") {
+              if (cadenaFecha != cadenaComparar) {
+                  resp += cadenaComparar;
+              }
+          }
+          return resp;
       };
 
       var getEventos = function () {
-          return eventosService.query();
+          $scope.isViewLoading = true;
+           
+          eventosService.query({}, 
+          function(data) {
+              $scope.eventos = data;
+              $scope.isViewLoading = false;
+          },
+          function (err) {
+              $scope.error = err;
+              $scope.isViewLoading = false;
+          });
       };
 
       var getEvento = function (idEvento) {
@@ -20,12 +43,10 @@ angular.module('eventosApp.controllers', []).
       };
 
       var createEvento = function (nuevoEvento) {
-          nuevoEvento.FechaRealizacion = $scope.fechaElegida.fecha;
           nuevoEvento.$save({}, 
           function(data) {
               //nuevoEvento = data;
               $scope.eventos.push(nuevoEvento);
-              $scope.status = data.status;
           },
           function(data) {
               // error callback
@@ -50,6 +71,7 @@ angular.module('eventosApp.controllers', []).
       $scope.loadEvento = function (evento) {
           if (evento) {
               $scope.evento = evento;
+              $scope.fechaElegida.fecha = $scope.evento.FechaRealizacion;
           }
       };
       
@@ -58,7 +80,8 @@ angular.module('eventosApp.controllers', []).
       };
 
       $scope.saveEvento = function (evento) {
-          
+          evento.FechaRealizacion = cambiarFormatoFecha($scope.fechaElegida.fecha);
+          $scope.fechaElegida.fecha = '';
           if (evento.Id) {
               updateEvento(evento);
           }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 using EventosImportantes.Web.API.Contracts;
 using EventosImportantes.Web.API.Models;
@@ -29,15 +30,10 @@ namespace EventosImportantes.Web.API.Controllers
 
         public IEnumerable<Evento> Get()
         {
+            Thread.Sleep(1000); // sólo para efectos de demo
             return eventoRepository.All;
         }
-
-        //[HttpGet]
-        //public IEnumerable<Evento> GetById([FromUri] IEnumerable<int> id)
-        //{
-        //    return eventoRepository.All;
-        //}
-
+         
         //
         // GET: /api/eventos/5
 
@@ -75,21 +71,7 @@ namespace EventosImportantes.Web.API.Controllers
 
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
-
-        //
-        // DELETE: api/eventos/
-        public HttpResponseMessage DeleteBatch([FromUri]IEnumerable<int> idsEventos)
-        {
-            foreach (var id in idsEventos)
-            {
-                eventoRepository.Delete(id);    
-            }
-            
-            eventoRepository.Save();
-
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
-        }
-
+         
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
